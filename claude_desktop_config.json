@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "todo-mcp-server": {
+      "command": "npm",
+      "args": ["run", "mcp"],
+      "cwd": "/path/to/nestjs-todolist"
+    }
+  }
+} 
