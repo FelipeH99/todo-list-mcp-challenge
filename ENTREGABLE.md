@@ -119,11 +119,6 @@ npm run mcp
 
 ## 📞 Contacto
 
-**Proyecto entregado por:** [Tu nombre]  
-**Fecha de entrega:** [Fecha actual]  
-**Repositorio:** Este directorio `nestjs-todolist/`  
+**Proyecto entregado por:** Felipe Heredia
+**Repositorio:** https://github.com/FelipeH99/todo-list-mcp-challenge.git  
 **Tecnologías:** NestJS + TypeScript + Model Context Protocol  
-
----
-
-**¡Listo para ser probado! 🚀** 
