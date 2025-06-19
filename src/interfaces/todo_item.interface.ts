@@ -5,4 +5,4 @@ export interface TodoItem {
   completed: boolean;
   createdAt: Date;
   updatedAt: Date;
-} 
+}
