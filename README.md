@@ -27,16 +27,10 @@ npm run start:dev
 
 ### 3. Ejecutar el Servidor MCP
 
-Primero, compila el proyecto (esto genera los archivos necesarios en la carpeta dist/):
+Con el siguiente comando compila el proyecto (esto genera los archivos necesarios en la carpeta dist/) y luego lo ejecuta:
 
 ```bash
-npm run build
-```
-
-Luego, en otra terminal, ejecuta el servidor MCP:
-
-```bash
-npm run mcp
+npm run mcp:build
 ```
 
 ✅ **Servidor MCP listo para Claude Desktop**
