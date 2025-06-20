@@ -5,6 +5,7 @@ Una API REST completa para gestión de listas de tareas con servidor MCP que per
 ## 🚀 Inicio Rápido
 
 ### 1. Instalación
+
 ```bash
 # Clonar el repositorio
 git clone https://github.com/crunchloop/nestjs-interview.git todolist-mcp
@@ -16,17 +17,21 @@ npm install @modelcontextprotocol/sdk zod
 ```
 
 ### 2. Ejecutar la API REST
+
 ```bash
 # Iniciar en modo desarrollo
 npm run start:dev
 ```
+
 ✅ **API disponible en:** `http://localhost:3000`
 
 ### 3. Ejecutar el Servidor MCP
+
 ```bash
 # En otra terminal
 npm run mcp
 ```
+
 ✅ **Servidor MCP listo para Claude Desktop**
 
 ## 🤖 Configurar Claude Desktop
@@ -34,21 +39,25 @@ npm run mcp
 ### 1. Encontrar el archivo de configuración
 
 **Windows:**
+
 ```
 %APPDATA%\Claude\claude_desktop_config.json
 ```
 
 **macOS:**
+
 ```
 ~/Library/Application Support/Claude/claude_desktop_config.json
 ```
 
 **Linux:**
+
 ```
 ~/.config/claude/claude_desktop_config.json
 ```
 
 ### 2. Agregar esta configuración:
+
 ```json
 {
   "mcpServers": {
@@ -113,23 +122,25 @@ curl http://localhost:3000/api/todolists
 ## 📡 Endpoints Disponibles
 
 ### 📋 Listas de Tareas
-| Método | URL | Descripción |
-|--------|-----|-------------|
-| `GET` | `/api/todolists` | Listar todas las listas |
-| `GET` | `/api/todolists/:id` | Obtener lista específica |
-| `POST` | `/api/todolists` | Crear nueva lista |
-| `PUT` | `/api/todolists/:id` | Actualizar lista |
-| `DELETE` | `/api/todolists/:id` | Eliminar lista |
+
+| Método   | URL                  | Descripción              |
+| -------- | -------------------- | ------------------------ |
+| `GET`    | `/api/todolists`     | Listar todas las listas  |
+| `GET`    | `/api/todolists/:id` | Obtener lista específica |
+| `POST`   | `/api/todolists`     | Crear nueva lista        |
+| `PUT`    | `/api/todolists/:id` | Actualizar lista         |
+| `DELETE` | `/api/todolists/:id` | Eliminar lista           |
 
 ### ✅ Elementos de Tareas
-| Método | URL | Descripción |
-|--------|-----|-------------|
-| `GET` | `/api/todolists/:listId/items` | Ítems de una lista |
-| `GET` | `/api/items/:id` | Obtener ítem específico |
-| `POST` | `/api/todolists/:listId/items` | Crear ítem en lista |
-| `PUT` | `/api/items/:id` | Actualizar ítem |
-| `PATCH` | `/api/items/:id/complete` | Marcar como completado |
-| `DELETE` | `/api/items/:id` | Eliminar ítem |
+
+| Método   | URL                            | Descripción             |
+| -------- | ------------------------------ | ----------------------- |
+| `GET`    | `/api/todolists/:listId/items` | Ítems de una lista      |
+| `GET`    | `/api/items/:id`               | Obtener ítem específico |
+| `POST`   | `/api/todolists/:listId/items` | Crear ítem en lista     |
+| `PUT`    | `/api/items/:id`               | Actualizar ítem         |
+| `PATCH`  | `/api/items/:id/complete`      | Marcar como completado  |
+| `DELETE` | `/api/items/:id`               | Eliminar ítem           |
 
 ## 🛠️ Herramientas MCP
 
@@ -160,6 +171,7 @@ Esto abre una interfaz web donde puedes probar todas las herramientas.
 ## 📝 Estructura de Datos
 
 ### TodoList
+
 ```json
 {
   "id": 1,
@@ -168,6 +180,7 @@ Esto abre una interfaz web donde puedes probar todas las herramientas.
 ```
 
 ### TodoItem
+
 ```json
 {
   "id": 1,
@@ -182,20 +195,23 @@ Esto abre una interfaz web donde puedes probar todas las herramientas.
 ## 🔍 Verificar que Todo Funcione
 
 ### 1. API REST
+
 ```bash
 curl http://localhost:3000/api/todolists
 # Debería devolver: []
 ```
 
 ### 2. Servidor MCP
+
 En Claude Desktop, deberías ver un ícono de herramientas (🔧) en la esquina superior derecha.
 
 ### 3. Prueba completa
+
 ```bash
 # Terminal 1: API REST
 npm run start:dev
 
-# Terminal 2: Servidor MCP  
+# Terminal 2: Servidor MCP
 npm run mcp
 
 # Claude Desktop: "Lista todas mis listas de tareas"
@@ -204,20 +220,24 @@ npm run mcp
 ## ❓ Solución de Problemas
 
 ### Error: "Tool not found"
+
 - Verifica que el servidor MCP esté ejecutándose
 - Reinicia Claude Desktop completamente
 
 ### Error: "Cannot connect to server"
+
 - Verifica la ruta en `claude_desktop_config.json`
 - Asegúrate de que `npm run mcp` funcione en esa ruta
 
 ### Error: "Port 3000 already in use"
+
 ```bash
 # Cambiar puerto en src/main.ts
 await app.listen(3001);
 ```
 
 ### Claude Desktop no muestra herramientas
+
 - Verifica que el archivo de configuración esté en la ubicación correcta
 - Revisa que la sintaxis JSON sea válida
 - Reinicia Claude Desktop después de cada cambio
@@ -230,10 +250,3 @@ await app.listen(3001);
 - **Ejemplo MCP de Crunchloop:** https://github.com/crunchloop/mcp-teamtailor
 
 ## 🎉 ¡Listo!
-
-Ahora puedes:
-- ✅ Gestionar listas y tareas via API REST
-- ✅ Hablar con Claude en lenguaje natural
-- ✅ Crear, actualizar y completar tareas fácilmente
-
-**¡Disfruta de tu nueva TodoList inteligente! 🚀**

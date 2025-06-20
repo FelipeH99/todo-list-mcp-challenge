@@ -3,7 +3,7 @@
     "todo-mcp-server": {
       "command": "npm",
       "args": ["run", "mcp"],
-      "cwd": "/path/to/nestjs-todolist"
+      "cwd": "/repos/TODO-LIST-MCP-CHALLENGE"
     }
   }
 } 
