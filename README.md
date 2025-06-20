@@ -8,8 +8,8 @@ Una API REST completa para gestión de listas de tareas con servidor MCP que per
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/crunchloop/nestjs-interview.git todolist-mcp
-cd todolist-mcp
+git clone https://github.com/FelipeH99/todo-list-mcp-challenge.git
+cd TODO-LIST-MCP-CHALLENGE
 
 # Instalar dependencias
 npm install
@@ -59,18 +59,13 @@ npm run mcp
 ### 2. Agregar esta configuración:
 
 ```json
-{
-  "mcpServers": {
     "todo-mcp-server": {
-      "command": "npm",
-      "args": ["run", "mcp"],
-      "cwd": "C:\\ruta\\completa\\a\\tu\\proyecto\\todolist-mcp"
+      "command": "node",
+      "args": ["Tu-ruta/todo-list-mcp-challenge/dist/mcp/mcp-server.js"]
     }
-  }
-}
 ```
 
-⚠️ **Importante:** Cambiar `C:\\ruta\\completa\\a\\tu\\proyecto\\todolist-mcp` por la ruta real de tu proyecto.
+⚠️ **Importante:** Cambiar `C:\\ruta\\completa\\a\\tu\\proyecto\\tdist/mcp/mcp-server.js` por la ruta real de tu proyecto.
 
 ### 3. Reiniciar Claude Desktop
 
@@ -219,6 +214,17 @@ npm run mcp
 
 ## ❓ Solución de Problemas
 
+### No se encuentra archivo claude_desktop.json
+
+- En una terminal ejecutar el siguiente comando: curl -fsSL https://raw.githubusercontent.com/wonderwhy-er/DesktopCommanderMCP/refs/heads/main/install.sh | bash
+- Luego de instalado esto, reinicia Claude y en settings/Integrstions deberia aparecer la integracion con Desktop comander y se deberia haber creado el archivo claude_desktop_config.json en "/Library/Application Support/Claude/claude_desktop_config.json
+- Edita este archivo agregandole lo siguiente en el grupo mcp_servers:
+  ",
+  "todo-mcp-server": {
+  "command": "node",
+  "args": ["Tu-ruta/todo-list-mcp-challenge/dist/mcp/mcp-server.js"]
+  } "
+
 ### Error: "Tool not found"
 
 - Verifica que el servidor MCP esté ejecutándose
@@ -248,5 +254,4 @@ await app.listen(3001);
 - **Entregable completo:** `ENTREGABLE.md`
 - **Model Context Protocol:** https://modelcontextprotocol.io
 - **Ejemplo MCP de Crunchloop:** https://github.com/crunchloop/mcp-teamtailor
-
-## 🎉 ¡Listo!
+- **Front-end disponible para Usar la Api Restfull en https://github.com/FelipeH99/Todo-list-FE.git**
