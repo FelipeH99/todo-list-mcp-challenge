@@ -6,7 +6,6 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
-import { z } from 'zod';
 
 import { TodoListsService } from '../todo_lists/todo_lists.service.js';
 import { TodoItemsService } from '../todo_items/todo_items.service.js';
@@ -31,7 +30,7 @@ class TodoMCPServer {
         capabilities: {
           tools: {},
         },
-      }
+      },
     );
 
     // Inicializar servicios
@@ -85,7 +84,8 @@ class TodoMCPServer {
                 },
                 completed: {
                   type: 'boolean',
-                  description: 'Si el ítem está completado (opcional, por defecto false)',
+                  description:
+                    'Si el ítem está completado (opcional, por defecto false)',
                   default: false,
                 },
               },
@@ -100,7 +100,8 @@ class TodoMCPServer {
               properties: {
                 listName: {
                   type: 'string',
-                  description: 'Nombre de la lista de la cual obtener los ítems',
+                  description:
+                    'Nombre de la lista de la cual obtener los ítems',
                 },
               },
               required: ['listName'],
@@ -206,7 +207,10 @@ class TodoMCPServer {
       content: [
         {
           type: 'text',
-          text: `Listas de tareas disponibles:\n${lists.map(list => `- ${list.name} (ID: ${list.id})`).join('\n') || 'No hay listas disponibles'}`,
+          text: `Listas de tareas disponibles:\n${
+            lists.map((list) => `- ${list.name} (ID: ${list.id})`).join('\n') ||
+            'No hay listas disponibles'
+          }`,
         },
       ],
     };
@@ -227,11 +231,13 @@ class TodoMCPServer {
 
   private async handleCreateTodoItem(args: any) {
     const { listName, description, completed = false } = args;
-    
+
     // Buscar la lista por nombre
     const lists = this.todoListsService.all();
-    const list = lists.find(l => l.name.toLowerCase() === listName.toLowerCase());
-    
+    const list = lists.find(
+      (l) => l.name.toLowerCase() === listName.toLowerCase(),
+    );
+
     if (!list) {
       throw new Error(`Lista "${listName}" no encontrada`);
     }
@@ -254,17 +260,19 @@ class TodoMCPServer {
 
   private async handleListTodoItems(args: any) {
     const { listName } = args;
-    
+
     // Buscar la lista por nombre
     const lists = this.todoListsService.all();
-    const list = lists.find(l => l.name.toLowerCase() === listName.toLowerCase());
-    
+    const list = lists.find(
+      (l) => l.name.toLowerCase() === listName.toLowerCase(),
+    );
+
     if (!list) {
       throw new Error(`Lista "${listName}" no encontrada`);
     }
 
     const items = this.todoItemsService.getItemsByListId(list.id);
-    
+
     if (items.length === 0) {
       return {
         content: [
@@ -276,9 +284,14 @@ class TodoMCPServer {
       };
     }
 
-    const itemsText = items.map(item => 
-      `- [${item.completed ? 'x' : ' '}] ${item.description} (ID: ${item.id})`
-    ).join('\n');
+    const itemsText = items
+      .map(
+        (item) =>
+          `- [${item.completed ? 'x' : ' '}] ${item.description} (ID: ${
+            item.id
+          })`,
+      )
+      .join('\n');
 
     return {
       content: [
@@ -292,9 +305,9 @@ class TodoMCPServer {
 
   private async handleUpdateTodoItem(args: any) {
     const { itemId, description } = args;
-    
+
     const updatedItem = this.todoItemsService.update(itemId, { description });
-    
+
     return {
       content: [
         {
@@ -307,9 +320,9 @@ class TodoMCPServer {
 
   private async handleCompleteTodoItem(args: any) {
     const { itemId } = args;
-    
+
     const completedItem = this.todoItemsService.markAsCompleted(itemId);
-    
+
     return {
       content: [
         {
@@ -322,12 +335,12 @@ class TodoMCPServer {
 
   private async handleDeleteTodoItem(args: any) {
     const { itemId } = args;
-    
+
     const item = this.todoItemsService.getById(itemId);
     const description = item.description;
-    
+
     this.todoItemsService.delete(itemId);
-    
+
     return {
       content: [
         {
@@ -349,4 +362,4 @@ class TodoMCPServer {
 if (require.main === module) {
   const server = new TodoMCPServer();
   server.run().catch(console.error);
-} 
+}
