@@ -9,7 +9,7 @@ Una API REST completa para gestión de listas de tareas con servidor MCP que per
 ```bash
 # Clonar el repositorio
 git clone https://github.com/FelipeH99/todo-list-mcp-challenge.git
-cd TODO-LIST-MCP-CHALLENGE
+cd todo-list-mcp-challenge
 
 # Instalar dependencias
 npm install
@@ -27,8 +27,15 @@ npm run start:dev
 
 ### 3. Ejecutar el Servidor MCP
 
+Primero, compila el proyecto (esto genera los archivos necesarios en la carpeta dist/):
+
 ```bash
-# En otra terminal
+npm run build
+```
+
+Luego, en otra terminal, ejecuta el servidor MCP:
+
+```bash
 npm run mcp
 ```
 
