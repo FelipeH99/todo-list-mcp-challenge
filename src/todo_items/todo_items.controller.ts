@@ -33,7 +33,7 @@ export class TodoItemsController {
   @Post('todolists/:listId/items')
   createItem(
     @Param('listId') listId: number,
-    @Body() dto: CreateTodoItemDto
+    @Body() dto: CreateTodoItemDto,
   ): TodoItem {
     // Asegurar que el listId del parámetro coincida con el del body
     dto.listId = Number(listId);
@@ -44,7 +44,7 @@ export class TodoItemsController {
   @Put('items/:id')
   updateItem(
     @Param('id') id: number,
-    @Body() dto: UpdateTodoItemDto
+    @Body() dto: UpdateTodoItemDto,
   ): TodoItem {
     return this.todoItemsService.update(id, dto);
   }
@@ -60,4 +60,4 @@ export class TodoItemsController {
   deleteItem(@Param('id') id: number): void {
     this.todoItemsService.delete(id);
   }
-} 
+}

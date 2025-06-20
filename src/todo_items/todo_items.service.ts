@@ -7,11 +7,12 @@ import { TodoItem } from '../interfaces/todo_item.interface';
 export class TodoItemsService {
   private readonly todoItems: TodoItem[] = [];
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {}
 
   // Obtener todos los items de una lista específica
   getItemsByListId(listId: number): TodoItem[] {
-    return this.todoItems.filter(item => item.listId === Number(listId));
+    return this.todoItems.filter((item) => item.listId === Number(listId));
   }
 
   // Obtener todos los items (para el servidor MCP)
@@ -21,7 +22,7 @@ export class TodoItemsService {
 
   // Obtener un item específico
   getById(id: number): TodoItem {
-    const item = this.todoItems.find(item => item.id === Number(id));
+    const item = this.todoItems.find((item) => item.id === Number(id));
     if (!item) {
       throw new NotFoundException(`TodoItem with ID ${id} not found`);
     }
@@ -46,7 +47,7 @@ export class TodoItemsService {
   // Actualizar un item existente
   update(id: number, dto: UpdateTodoItemDto): TodoItem {
     const item = this.getById(id);
-    
+
     if (dto.description !== undefined) {
       item.description = dto.description;
     }
@@ -68,7 +69,7 @@ export class TodoItemsService {
 
   // Eliminar un item
   delete(id: number): void {
-    const index = this.todoItems.findIndex(item => item.id === Number(id));
+    const index = this.todoItems.findIndex((item) => item.id === Number(id));
     if (index === -1) {
       throw new NotFoundException(`TodoItem with ID ${id} not found`);
     }
@@ -77,9 +78,9 @@ export class TodoItemsService {
 
   private nextId(): number {
     const lastId = this.todoItems
-      .map(item => item.id)
+      .map((item) => item.id)
       .sort((a, b) => b - a)[0];
-    
+
     return lastId ? lastId + 1 : 1;
   }
-} 
+}

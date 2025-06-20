@@ -7,4 +7,4 @@ import { TodoItemsService } from './todo_items.service';
   providers: [TodoItemsService],
   exports: [TodoItemsService], // Exportar para que el servidor MCP pueda usarlo
 })
-export class TodoItemsModule {} 
+export class TodoItemsModule {}
