@@ -1,6 +1,16 @@
 # 📝 TodoList API + MCP Server
 
-Una API REST completa para gestión de listas de tareas con servidor MCP que permite interacción mediante **lenguaje natural** con Claude Desktop.
+Gestión de listas de tareas mediante una API REST en NestJS y un servidor MCP con siete herramientas para clientes compatibles.
+
+**Stack:** TypeScript · NestJS · Model Context Protocol · Jest
+
+## Arquitectura y alcance
+
+La API HTTP y el servidor MCP reutilizan los servicios de listas y tareas. El servidor MCP los instancia directamente y se comunica por stdio; no hace peticiones HTTP a la API.
+
+Los datos se guardan **en memoria, por proceso**. API y MCP no comparten las listas creadas y los datos se pierden al reiniciar. Es un proyecto de demostración sin base de datos ni autenticación.
+
+[Frontend complementario](https://github.com/FelipeH99/Todo-list-FE) · [Decisiones de implementación](README-IMPLEMENTACION.md)
 
 ## 🚀 Inicio Rápido
 
@@ -13,7 +23,6 @@ cd todo-list-mcp-challenge
 
 # Instalar dependencias
 npm install
-npm install @modelcontextprotocol/sdk zod
 ```
 
 ### 2. Ejecutar la API REST
@@ -60,13 +69,17 @@ npm run mcp:build
 ### 2. Agregar esta configuración:
 
 ```json
+{
+  "mcpServers": {
     "todo-mcp-server": {
       "command": "node",
-      "args": ["Tu-ruta/todo-list-mcp-challenge/dist/mcp/mcp-server.js"]
+      "args": ["/ruta/absoluta/todo-list-mcp-challenge/dist/mcp/mcp-server.js"]
     }
+  }
+}
 ```
 
-⚠️ **Importante:** Cambiar `C:\\ruta\\completa\\a\\tu\\proyecto\\tdist/mcp/mcp-server.js` por la ruta real de tu proyecto.
+Ejecutá `npm run build` antes de conectar el cliente y reemplazá la ruta del ejemplo por la de tu clon. Si ya hay otros servidores, agregá esta entrada dentro del objeto `mcpServers` existente.
 
 ### 3. Reiniciar Claude Desktop
 
@@ -204,10 +217,10 @@ En Claude Desktop, deberías ver un ícono de herramientas (🔧) en la esquina 
 ### 3. Prueba completa
 
 ```bash
-# Terminal 1: API REST
+# API REST: probar con HTTP
 npm run start:dev
 
-# Terminal 2: Servidor MCP
+# Alternativa MCP: datos independientes de la API
 npm run mcp
 
 # Claude Desktop: "Lista todas mis listas de tareas"
@@ -215,16 +228,9 @@ npm run mcp
 
 ## ❓ Solución de Problemas
 
-### No se encuentra archivo claude_desktop.json
+### No existe el archivo de configuración
 
-- En una terminal ejecutar el siguiente comando: curl -fsSL https://raw.githubusercontent.com/wonderwhy-er/DesktopCommanderMCP/refs/heads/main/install.sh | bash
-- Luego de instalado esto, reinicia Claude y en settings/Integrstions deberia aparecer la integracion con Desktop comander y se deberia haber creado el archivo claude_desktop_config.json en "/Library/Application Support/Claude/claude_desktop_config.json
-- Edita este archivo agregandole lo siguiente en el grupo mcp_servers:
-  ",
-  "todo-mcp-server": {
-  "command": "node",
-  "args": ["Tu-ruta/todo-list-mcp-challenge/dist/mcp/mcp-server.js"]
-  } "
+Creá el archivo `claude_desktop_config.json` en la carpeta de configuración de tu cliente y usá el JSON completo de arriba. No se necesita instalar otro servidor MCP para ejecutar este proyecto.
 
 ### Error: "Tool not found"
 
@@ -256,3 +262,13 @@ await app.listen(3001);
 - **Model Context Protocol:** https://modelcontextprotocol.io
 - **Ejemplo MCP de Crunchloop:** https://github.com/crunchloop/mcp-teamtailor
 - **Front-end disponible para Usar la Api Restfull en https://github.com/FelipeH99/Todo-list-FE.git**
+
+## Validación del proyecto
+
+```sh
+npm run build
+npm test -- --runInBand
+npm run test:e2e -- --runInBand
+```
+
+Estos comandos permiten comprobar compilación y pruebas incluidas. Su presencia no implica que una ejecución concreta haya pasado.
