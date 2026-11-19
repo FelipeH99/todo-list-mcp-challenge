@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTodoListDto } from './dtos/create-todo_list';
 import { UpdateTodoListDto } from './dtos/update-todo_list';
 import { TodoList } from '../interfaces/todo_list.interface';
@@ -16,7 +16,9 @@ export class TodoListsService {
   }
 
   get(id: number): TodoList {
-    return this.todolists.find((x) => x.id === Number(id));
+    const list = this.todolists.find((x) => x.id === Number(id));
+    if (!list) throw new NotFoundException(`TodoList with ID ${id} not found`);
+    return list;
   }
 
   create(dto: CreateTodoListDto): TodoList {
@@ -31,7 +33,7 @@ export class TodoListsService {
   }
 
   update(id: number, dto: UpdateTodoListDto): TodoList {
-    const todolist = this.todolists.find((x) => x.id == Number(id));
+    const todolist = this.get(id);
 
     // Update the record
     todolist.name = dto.name;
@@ -50,8 +52,7 @@ export class TodoListsService {
   private nextId(): number {
     const last = this.todolists
       .map((x) => x.id)
-      .sort()
-      .reverse()[0];
+      .sort((a, b) => b - a)[0];
 
     return last ? last + 1 : 1;
   }
